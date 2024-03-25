@@ -4,7 +4,14 @@ import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { View, useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native';
+import 'react-native-url-polyfill/auto'
+import { useState } from 'react'
+import { supabase } from '../lib/supabase'
+import Auth from '../components/authentication/Auth'
+import Account from '../components/authentication/Account'
+import { View } from 'react-native'
+import { Session } from '@supabase/supabase-js'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -60,16 +67,34 @@ function RootLayoutNav() {
     },
   };
 
+  const [session, setSession] = useState<Session | null>(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
+
   return (
     <ThemeProvider value={theme}>
 
+      <View>
+        {session && session.user ?
+          <Stack>
 
-      <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          </Stack> :
 
-      </Stack>
+          <Auth />}
+      </View>
+
+
+
 
       <StatusBar style="dark" />
 
