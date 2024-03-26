@@ -4,16 +4,7 @@ import { StyleSheet, View, Alert } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Session } from '@supabase/supabase-js'
 
-export default function Account() {
-
-    const [session, setSession] = useState<Session | null>(null)
-
-    useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
-        })
-    }, [])
-
+export default function Account({ session }: { session: Session }) {
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState('')
     const [website, setWebsite] = useState('')
@@ -105,8 +96,6 @@ export default function Account() {
                     disabled={loading}
                 />
             </View>
-
-
 
             <View style={styles.verticallySpaced}>
                 <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
