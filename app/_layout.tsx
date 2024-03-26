@@ -78,7 +78,6 @@ function RootLayoutNav() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
     })
-
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
@@ -87,27 +86,9 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={theme}>
 
-
-      {session && session.user ?
-        <View>
-          <TabStack></TabStack>
-          {/* <Account key={session.user.id} session={session} /> */}
-
-        </View> :
-        <Auth />}
-
-
-
-      {/* <Stack>
-
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-
-      </Stack> */}
-
-      {/* <Account key={session.user.id} session={session} /> */}
+      {session && session.user ? <TabStack /> : <Auth />}
 
       <StatusBar style="dark" />
-
     </ThemeProvider>
   );
 }
