@@ -8,10 +8,15 @@ import { useColorScheme } from 'react-native';
 import 'react-native-url-polyfill/auto'
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
-import Auth from '../components/authentication/Auth'
-import Account from '../components/authentication/Account'
-import { View } from 'react-native'
+import Auth from '../components/authentification/Auth'
+import Account from '../components/authentification/Account'
+import { View, Text } from 'react-native'
 import { Session } from '@supabase/supabase-js'
+import TabStack from './tabStack'
+import { Alert, StyleSheet, AppState } from 'react-native'
+
+
+
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -82,21 +87,29 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={theme}>
 
-      {/* <View>
-        {session && session.user ?
-          <Account key={session.user.id} session={session} /> :
-          <Auth />}
-      </View> */}
+
+      {session && session.user ?
+        <View>
+          <TabStack></TabStack>
+          {/* <Account key={session.user.id} session={session} /> */}
+
+        </View> :
+        <Auth />}
 
 
-      <Stack>
+
+      {/* <Stack>
 
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
-      </Stack>
+      </Stack> */}
+
+      {/* <Account key={session.user.id} session={session} /> */}
 
       <StatusBar style="dark" />
 
     </ThemeProvider>
   );
 }
+
+
