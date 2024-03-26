@@ -82,19 +82,18 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={theme}>
 
-      <View>
+      {/* <View>
         {session && session.user ?
-          <Stack>
-
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-
-          </Stack> :
-
+          <Account key={session.user.id} session={session} /> :
           <Auth />}
-      </View>
+      </View> */}
 
 
+      <Stack>
 
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+      </Stack>
 
       <StatusBar style="dark" />
 
