@@ -4,6 +4,8 @@ import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
 
 export default function TabHomeScreen() {
+  console.log('tabsIndex');
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home</Text>
@@ -27,5 +29,3 @@ const styles = StyleSheet.create({
     width: '80%',
   },
 });
-
-//hallo

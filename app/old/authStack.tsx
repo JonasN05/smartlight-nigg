@@ -3,20 +3,20 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
 
-export default function tabStack() {
+export default function authStack() {
 
-    console.log("tabStack");
+    console.log("authStack");
 
     return (
         <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         </Stack>
     );
 
 }
 
 const styles = StyleSheet.create({
-    tabStack: {
+    authStack: {
         height: '100%'
     }
 })

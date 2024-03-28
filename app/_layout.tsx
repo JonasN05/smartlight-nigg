@@ -9,11 +9,12 @@ import 'react-native-url-polyfill/auto'
 import { useState } from 'react'
 import { supabase } from '../lib/supabase'
 import Auth from '../components/authentification/Auth'
-import Account from '../components/authentification/Account'
+import AuthStack from './old/authStack'
 import { View, Text } from 'react-native'
 import { Session } from '@supabase/supabase-js'
 import TabStack from './tabStack'
-import { Alert, StyleSheet, AppState } from 'react-native'
+import SignIn from './(auth)/signIn'
+import AuthContainer from './(auth)/authContainer';
 
 
 
@@ -72,6 +73,19 @@ function RootLayoutNav() {
     },
   };
 
+  // const [session, setSession] = useState<Session | null>(null)
+
+  // useEffect(() => {
+  //   supabase.auth.getSession().then(({ data: { session } }) => {
+  //     setSession(session)
+  //   })
+  //   supabase.auth.onAuthStateChange((_event, session) => {
+  //     setSession(session)
+  //   })
+  // }, [])
+
+  console.log('appLayout')
+
   const [session, setSession] = useState<Session | null>(null)
 
   useEffect(() => {
@@ -83,10 +97,14 @@ function RootLayoutNav() {
     })
   }, [])
 
+
   return (
     <ThemeProvider value={theme}>
+      {/* <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack> */}
 
-      {session && session.user ? <TabStack /> : <Auth />}
+      {session && session.user ? <TabStack /> : <AuthContainer />}
 
       <StatusBar style="dark" />
     </ThemeProvider>

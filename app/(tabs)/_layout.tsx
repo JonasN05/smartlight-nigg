@@ -15,6 +15,8 @@ function TabBarIcon(props: {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  console.log('tabsLayout');
+
 
   const headerStyle = {
     backgroundColor: '#2D3142',
