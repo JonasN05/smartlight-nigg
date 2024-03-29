@@ -95,7 +95,7 @@ export default function Account() {
                 <Input label="Username" value={username || ''} onChangeText={(text) => setUsername(text)} />
             </View>
             <View style={styles.verticallySpaced}>
-                <Input label="Website" value={website || ''} onChangeText={(text) => setWebsite(text)} />
+                <Input label="Coming..." value={website || ''} onChangeText={(text) => setWebsite(text)} />
             </View>
 
             <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -109,7 +109,7 @@ export default function Account() {
 
 
             <View style={styles.verticallySpaced}>
-                <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
+                <Button title="Ausloggen" onPress={() => supabase.auth.signOut()} />
             </View>
         </View>
     )
