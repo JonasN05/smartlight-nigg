@@ -15,6 +15,7 @@ import { Session } from '@supabase/supabase-js'
 import TabStack from './tabStack'
 import SignIn from './(auth)/signIn'
 import AuthContainer from './(auth)/authContainer';
+import TitlePage from './(auth)/titlePage'
 
 
 
