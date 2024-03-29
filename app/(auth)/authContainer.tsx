@@ -60,6 +60,9 @@ const styles = StyleSheet.create({
     },
     whiteTextForButton: {
         color: 'white',
+        textShadowColor: 'black',
+        //textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 15,
     },
     buttonStyle: {
         marginLeft: 5,
@@ -70,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginTop: 90,
+        marginTop: '25%',
         marginBottom: 30,
     },
     question: {

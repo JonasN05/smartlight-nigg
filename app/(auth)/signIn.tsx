@@ -1,9 +1,11 @@
 import { Link, Redirect, Stack, router } from 'expo-router'
 import React, { useState } from 'react'
-import { View, Alert, StyleSheet, AppState, Pressable, Text, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
+import { View, Alert, StyleSheet, AppState, Pressable, Text, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from 'react-native'
 import { supabase } from '../../lib/supabase'
 import { Button, Input } from 'react-native-elements'
 import * as NavigationBar from 'expo-navigation-bar';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import AuthHeader from './components/authHeader'
 
 AppState.addEventListener('change', (state) => {
     if (state === 'active') {
@@ -17,6 +19,12 @@ AppState.addEventListener('change', (state) => {
 
 export default function SignIn() {
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
     //console.log('signIn')
 
     const [email, setEmail] = useState('')
@@ -29,58 +37,63 @@ export default function SignIn() {
             email: email,
             password: password,
         })
-
         if (error) Alert.alert(error.message)
         setLoading(false)
-
     }
 
 
-
     return (
-
-
         <View style={styles.container}>
 
-            <View style={styles.header}>
-                <View style={styles.oval}>
-                </View>
-                <View style={styles.headerTextContainer}>
-                    <Text style={styles.headerTextFirstWord}>
-                        Wilkommen
-                    </Text>
-                    <Text style={styles.headerTextSecondWord}>
-                        zurück
-                    </Text>
-                </View>
-            </View>
+            <AuthHeader firstWord='Willkommen' secondWord='zurück'></AuthHeader>
 
             <View style={styles.inputContainer}>
-                <View style={[styles.verticallySpaced]}>
+                <View style={styles.inputEmailContainer}>
                     <Input
-                        label="Email"
-                        leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+                        style={styles.inputColor}
                         onChangeText={(text) => setEmail(text)}
                         value={email}
-                        placeholder="email@address.com"
+                        placeholder=" E-Mail"
                         autoCapitalize={'none'}
+                        cursorColor={'#292929'}
+                    // placeholderTextColor='white'
+                    // inputContainerStyle={{ borderColor: 'white', borderBottomWidth: 1 }}
                     />
                 </View>
-                <View style={styles.verticallySpaced}>
+
+                <View style={styles.inputPasswordContainer}>
                     <Input
-                        label="Password"
-                        leftIcon={{ type: 'font-awesome', name: 'lock' }}
+                        style={styles.inputColor}
                         onChangeText={(text) => setPassword(text)}
                         value={password}
-                        secureTextEntry={true}
-                        placeholder="Password"
+                        secureTextEntry={!showPassword}
+                        placeholder=" Passwort"
                         autoCapitalize={'none'}
+                        cursorColor={'#292929'}
+                    // placeholderTextColor='white'
+                    // inputContainerStyle={{ borderColor: 'white' }}
+                    />
+                    <MaterialCommunityIcons
+                        name={showPassword ? 'eye' : 'eye-off'}
+                        size={24}
+                        color="#aaa"
+                        style={styles.icon}
+                        onPress={toggleShowPassword}
                     />
                 </View>
             </View>
 
             <View style={styles.signInButtonContainer}>
-                <Pressable style={styles.signInButton} disabled={loading} onPress={() => signInWithEmail()} >
+                <Pressable
+                    disabled={loading}
+                    onPress={() => signInWithEmail()}
+                    style={({ pressed }) => [
+                        {
+                            backgroundColor: pressed ? '#1d202b' : '#2D3142',
+                        },
+                        styles.signInButton,
+                    ]}
+                >
                     <Text style={styles.signInName}>
                         Anmelden
                     </Text>
@@ -88,26 +101,14 @@ export default function SignIn() {
             </View>
 
         </View>
-
-
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-
-    },
-    verticallySpaced: {
-        paddingTop: 4,
-        paddingBottom: 4,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-
+        flex: 1
     },
     signInButton: {
-        backgroundColor: '#2D3142',
         height: 50,
         borderRadius: 15,
         display: 'flex',
@@ -122,50 +123,31 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 18
     },
-    header: {
-        backgroundColor: 'transparent',
-    },
-    oval: {
-        backgroundColor: '#2D3142',
-        display: 'flex',
-        justifyContent: 'center',
-        position: 'relative',
-        marginBottom: -60,
-        top: -60,
-        width: 300,
-        // elevation: 8,
-        height: 300,
-        borderRadius: 150,
-        transform: [
-            { scaleX: 2 }
-        ]
-    },
-    headerTextFirstWord: {
-        position: 'absolute',
-        top: 80,
-        fontSize: 35,
-        fontWeight: '900',
-        color: 'white'
-    },
-    headerTextSecondWord: {
-        position: 'absolute',
-        top: 120,
-        fontSize: 35,
-        fontWeight: '900',
-        color: 'white'
-    },
-    headerTextContainer: {
-        position: 'absolute',
-        marginLeft: 30,
-    },
     signInButtonContainer: {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        marginTop: 100,
+        marginTop: '50%',
     },
     inputContainer: {
-        marginTop: 50,
-        marginHorizontal: 30
+        marginTop: '10%',
+        marginHorizontal: 30,
+    },
+    inputPasswordContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    inputEmailContainer: {
+
+    },
+    inputColor: {
+        // fontWeight: '200',
+        // color: 'white',
+    },
+    icon: {
+        marginTop: 10,
+        marginRight: 10,
+        right: 0,
+        position: 'absolute'
     },
 })
