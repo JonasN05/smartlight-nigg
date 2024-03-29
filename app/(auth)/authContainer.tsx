@@ -4,6 +4,7 @@ import SignIn from './signIn'
 import SignUp from './signUp'
 import { Pressable, View } from 'react-native'
 import * as NavigationBar from 'expo-navigation-bar';
+import TitlePage from './titlePage'
 
 export default function authContainer() {
 
@@ -11,43 +12,67 @@ export default function authContainer() {
     const [buttonName, setButtonName] = useState('Registrieren')
     const [question, setQuestion] = useState('Noch kein Konto?')
 
+    const [id, setId] = useState(0)
+
     NavigationBar.setBackgroundColorAsync("#4F5D75");
 
-    return (
+    if (id == 0) {
+        return (<TitlePage setId={setId}></TitlePage>)
+    } else if (id == 1) {
+        return (
 
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-                <View style={styles.background}>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                    <View style={styles.background}>
 
-                    <View style={styles.signComponentContainer}>
-                        {signInUp ? <SignIn /> : <SignUp />}
+                        <View style={styles.signComponentContainer}>
+                            {signInUp ? <SignIn /> : <SignUp />}
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.question}>
+                                {question}
+                            </Text>
+                            <Pressable style={styles.buttonStyle} onPress={pressHandler}><Text style={styles.whiteTextForButton}>{buttonName}</Text></Pressable>
+                        </View>
+
                     </View>
+                </ScrollView>
+            </KeyboardAvoidingView >
 
-                    <View style={styles.buttonContainer}>
-                        <Text style={styles.question}>
-                            {question}
-                        </Text>
-                        <Pressable style={styles.buttonStyle} onPress={pressHandler}><Text style={styles.whiteTextForButton}>{buttonName}</Text></Pressable>
+        )
+    } else if (id == 2) {
+        return (
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                    <View style={styles.background}>
+
+                        <View style={styles.signComponentContainer}>
+                            {!signInUp ? <SignUp /> : <SignIn />}
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <Text style={styles.question}>
+                                {question}
+                            </Text>
+                            <Pressable style={styles.buttonStyle} onPress={pressHandler}><Text style={styles.whiteTextForButton}>{buttonName}</Text></Pressable>
+                        </View>
+
                     </View>
+                </ScrollView>
+            </KeyboardAvoidingView >)
+    }
 
-                </View>
-            </ScrollView>
-        </KeyboardAvoidingView >
 
-    )
 
     function pressHandler() {
-
         if (!signInUp) {
             setButtonName("Registrieren");
-
             setQuestion('Noch kein Konto?');
         } else {
-
             setQuestion("Schon ein Konto?");
             setButtonName("Anmelden");
         }
-
         setSignInOn(!signInUp);
         console.log(signInUp)
     }

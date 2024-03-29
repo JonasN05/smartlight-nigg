@@ -2,6 +2,8 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Platform, Pressable, useColorScheme } from 'react-native';
 import * as NavigationBar from 'expo-navigation-bar';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import Colors from '../../constants/Colors';
 
@@ -54,8 +56,11 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={30} style={{ marginTop: 5 }} />
+          ),
 
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           // headerRight: () => (
           //   <Link href="/modal" asChild>
           //     <Pressable>
@@ -77,28 +82,42 @@ export default function TabLayout() {
         name="consumption"
         options={{
           title: 'Verbrauch',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          // chart-bar
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="chart-bar" color={color} size={30} style={{ marginTop: 5 }} />
+          ),
+          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="activity"
         options={{
           title: 'Aktivität',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          // lightning-bolt
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="lightning-bolt" color={color} size={30} style={{ marginTop: 5 }} />
+          ),
+          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="weather"
         options={{
           title: 'Witterung',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="white-balance-sunny" color={color} size={30} style={{ marginTop: 5 }} />
+          ),
+          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
         name="account"
         options={{
           title: 'Konto',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={30} style={{ marginTop: 5 }} />
+          ),
+          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
     </Tabs>
