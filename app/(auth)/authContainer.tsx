@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import SignIn from './signIn'
 import SignUp from './signUp'
@@ -8,13 +8,25 @@ import TitlePage from './titlePage'
 
 export default function authContainer() {
 
-    const [signInUp, setSignInOn] = useState(true)
-    const [buttonName, setButtonName] = useState('Registrieren')
-    const [question, setQuestion] = useState('Noch kein Konto?')
-
     const [id, setId] = useState(0)
 
+    const [signInUp, setSignInOn] = useState(true)
+    const [buttonName, setButtonName] = useState("Registrieren")
+    const [question, setQuestion] = useState('Noch kein Konto?')
+
     NavigationBar.setBackgroundColorAsync("#4F5D75");
+
+    useEffect(() => {
+        if (id == 1) {
+            setButtonName("Registrieren")
+            setQuestion("Noch kein Konto?");
+        } else if (id == 2) {
+            setButtonName("Anmelden")
+            setQuestion("Schon ein Konto?")
+        }
+    }, [id]);
+
+    console.log("initial " + signInUp)
 
     if (id == 0) {
         return (<TitlePage setId={setId}></TitlePage>)
@@ -48,7 +60,7 @@ export default function authContainer() {
                     <View style={styles.background}>
 
                         <View style={styles.signComponentContainer}>
-                            {!signInUp ? <SignUp /> : <SignIn />}
+                            {signInUp ? <SignUp /> : <SignIn />}
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -66,14 +78,27 @@ export default function authContainer() {
 
 
     function pressHandler() {
-        if (!signInUp) {
-            setButtonName("Registrieren");
-            setQuestion('Noch kein Konto?');
-        } else {
-            setQuestion("Schon ein Konto?");
-            setButtonName("Anmelden");
+        console.log("inPress " + signInUp)
+        if (id == 1) {
+            if (!signInUp) {
+                setButtonName("Registrieren");
+                setQuestion('Noch kein Konto?');
+            } else {
+                setQuestion("Schon ein Konto?");
+                setButtonName("Anmelden");
+            }
+            setSignInOn(!signInUp);
+        } else if (id == 2) {
+            if (!signInUp) {
+                setQuestion("Schon ein Konto?");
+                setButtonName("Anmelden");
+            } else {
+                setButtonName("Registrieren");
+                setQuestion('Noch kein Konto?');
+            }
+            setSignInOn(!signInUp);
         }
-        setSignInOn(!signInUp);
+
         console.log(signInUp)
     }
 }

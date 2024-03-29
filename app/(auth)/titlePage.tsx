@@ -10,7 +10,6 @@ type Props = {
 
 export default function titlePage({ setId }: Props) {
 
-    const router = useRouter();
 
     function navigateToSignIn() {
         setId(1);
