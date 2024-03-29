@@ -1,6 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Platform, Pressable, useColorScheme } from 'react-native';
+import * as NavigationBar from 'expo-navigation-bar';
 
 import Colors from '../../constants/Colors';
 
@@ -13,6 +14,8 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+
+  NavigationBar.setBackgroundColorAsync("#2D3142");
   const colorScheme = useColorScheme();
 
   console.log('tabsLayout');
@@ -28,7 +31,8 @@ export default function TabLayout() {
         shadowRadius: 4,
       },
       android: {
-        elevation: 8,
+        elevation: 15,
+        shadowColor: 'black',
       },
     }),
     borderBottomLeftRadius: 10,
