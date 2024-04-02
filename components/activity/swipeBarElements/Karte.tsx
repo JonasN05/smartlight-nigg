@@ -30,7 +30,7 @@ export default function Karte({ initialLayout, locations }: Props) {
 
                     <Marker
                         title="HTL Dornbirn"
-                        description="Coder"
+                        description="Coding Center"
                         coordinate={{ "latitude": 47.41386294700093, "longitude": 9.723371237209113 }}
                     />
 

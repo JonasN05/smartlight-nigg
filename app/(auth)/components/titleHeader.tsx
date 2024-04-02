@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
         top: 130,
         fontSize: 35,
         fontWeight: '900',
-        color: 'white'
+        color: 'white',
+        width: 250,
     },
     headerTextSecondWord: {
         position: 'absolute',

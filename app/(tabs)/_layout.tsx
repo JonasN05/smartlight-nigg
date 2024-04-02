@@ -17,7 +17,11 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
 
-  NavigationBar.setBackgroundColorAsync("#2D3142");
+  if (Platform.OS === 'android') {
+    NavigationBar.setBackgroundColorAsync("#2D3142");
+  }
+
+
   const colorScheme = useColorScheme();
 
   console.log('tabsLayout');

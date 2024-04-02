@@ -14,7 +14,11 @@ export default function authContainer() {
     const [buttonName, setButtonName] = useState("Registrieren")
     const [question, setQuestion] = useState('Noch kein Konto?')
 
-    NavigationBar.setBackgroundColorAsync("#4F5D75");
+    if (Platform.OS === 'android') {
+        NavigationBar.setBackgroundColorAsync("#4F5D75");
+    }
+
+
 
     useEffect(() => {
         if (id == 1) {
