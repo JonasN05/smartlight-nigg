@@ -1,11 +1,14 @@
-import MapView from 'react-native-maps';
 import { View, Text } from '../../Themed';
 import { StyleSheet } from 'react-native';
-import { initialWindowMetrics } from 'react-native-safe-area-context';
+import MapView, { Marker } from 'react-native-maps';
 
-type Props = { initialLayout: object };
+type Props = { initialLayout: object, locations: any };
 
-export default function Karte({ initialLayout }: Props) {
+export default function Karte({ initialLayout, locations }: Props) {
+
+    let markerId = 0;
+    // console.log("")
+    // console.log(locations);
     return (
         <View style={styles.mapPage}>
             <View style={styles.mapTextContainer}>
@@ -13,7 +16,45 @@ export default function Karte({ initialLayout }: Props) {
             </View>
 
             <View style={styles.mapContainer}>
-                <MapView style={styles.map} />
+
+
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        "latitude": 47.41307963316573,
+                        "latitudeDelta": 0.0922,
+                        "longitude": 9.739040306963899,
+                        "longitudeDelta": 0.0421,
+                    }}
+                >
+
+                    <Marker
+                        title="HTL Dornbirn"
+                        description="Coder"
+                        coordinate={{ "latitude": 47.41386294700093, "longitude": 9.723371237209113 }}
+                    />
+
+                    {locations.map((location: {
+                        name: string; descprition: string; latitude: string; longitude: string;
+                    }) => {
+                        console.log(location.latitude);
+                        console.log(location.longitude);
+
+                        let latitude = Number(location.latitude);
+                        let longitude = Number(location.longitude);
+                        markerId++;
+
+                        return (
+                            <Marker
+                                key={markerId}
+                                title={location.name}
+                                description={location.descprition}
+                                coordinate={{ "latitude": latitude, "longitude": longitude }}
+                            />
+                        )
+                    })}
+
+                </MapView>
             </View>
         </View>
     )

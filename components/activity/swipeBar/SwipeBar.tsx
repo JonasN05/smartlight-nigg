@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet, View, Text } from 'react-native'
 import { TabBar, TabView } from 'react-native-tab-view'
 import Karte from '../swipeBarElements/Karte';
@@ -8,13 +8,24 @@ import TabActivityScreen from '../../../app/(tabs)/activity';
 
 export default function SwipeBar() {
 
+    const [locations, setLocations] = useState([]);
+
     const initialLayout = { width: Dimensions.get('window').width };
-
     const tabStyleWidth = initialLayout.width / 3;
-
     const indicatorWidthAdjustment = 50;
     const indicatorWidth = initialLayout.width / 3 - indicatorWidthAdjustment;
     const indicatorDistanze = (initialLayout.width / 3 - indicatorWidth) / 2;
+
+
+    useEffect(() => {
+        fetch("https://657c5542853beeefdb993793.mockapi.io/swp/react/location").then(
+            (res) => res.json().then((data) => {
+                console.log(data);
+                setLocations(data);
+            })
+        );
+    }, []);
+
 
 
     const renderTabBar = (props: any) => (
@@ -55,7 +66,7 @@ export default function SwipeBar() {
     const renderScene = ({ route }: { route: { key: string } }) => {
         switch (route.key) {
             case 'map':
-                return <Karte initialLayout={initialLayout} ></Karte>;
+                return <Karte initialLayout={initialLayout} locations={locations} ></Karte>;
             case 'smartLights':
                 return <SmartLights></SmartLights>;
             case 'other':
