@@ -12,7 +12,6 @@ export default function IconAndDropdownCard(props: {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
 
-  // Map the dropdownOptions to the format expected by DropDownPicker
   const dropdownItems = props.dropdownOptions.map((option) => ({
     label: option,
     value: option,
@@ -32,7 +31,7 @@ export default function IconAndDropdownCard(props: {
             console.log(value);
           }}
           style={{
-            backgroundColor: "transparent",
+            backgroundColor: open ? "#1a1c26":"transparent" ,
             borderColor: "#2D3142",
           }}
           textStyle={{
@@ -42,7 +41,7 @@ export default function IconAndDropdownCard(props: {
             textAlign: "center",
           }}
           dropDownContainerStyle={{
-            backgroundColor: "#2D3142",
+            backgroundColor: "#1a1c25",
             borderColor: "#2D3142",
           }}
           ArrowUpIconComponent={() => (
