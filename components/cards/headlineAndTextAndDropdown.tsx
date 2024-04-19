@@ -13,7 +13,6 @@ export default function headlineAndTextAndDropdown(props: {
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
 
-  // Map the dropdownOptions to the format expected by DropDownPicker
   const dropdownItems = props.dropdownOptions.map((option) => ({
     label: option,
     value: option,
@@ -37,7 +36,7 @@ export default function headlineAndTextAndDropdown(props: {
               console.log(value);
             }}
             style={{
-              backgroundColor: "transparent",
+              backgroundColor: open ? "#1a1c26" : "transparent",
               borderColor: "#2D3142",
             }}
             textStyle={{
@@ -47,7 +46,7 @@ export default function headlineAndTextAndDropdown(props: {
               textAlign: "center",
             }}
             dropDownContainerStyle={{
-              backgroundColor: "#2D3142",
+              backgroundColor: "#1a1c26",
               borderColor: "#2D3142",
             }}
             ArrowUpIconComponent={() => (
@@ -57,12 +56,14 @@ export default function headlineAndTextAndDropdown(props: {
               <Image source={require("./arrow_down.png")} style={styles.icon} />
             )}
             showTickIcon={false}
+            onClose={() => setOpen(false)}
+            onOpen={() => setOpen(true)}
           />
         </View>
       </View>
     </View>
   );
-}
+}  
 
 const styles = StyleSheet.create({
   container: {
