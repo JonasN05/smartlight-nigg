@@ -1,5 +1,4 @@
 import { Link, NavigationContainer } from '@react-navigation/native'
-import { Stack, useRouter } from 'expo-router'
 import React from 'react'
 import { Pressable, View, Text, StyleSheet } from 'react-native'
 import TitleHeader from './components/titleHeader'

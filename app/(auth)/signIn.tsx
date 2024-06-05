@@ -1,4 +1,3 @@
-import { Link, Redirect, Stack, router } from 'expo-router'
 import React, { useState } from 'react'
 import { View, Alert, StyleSheet, AppState, Pressable, Text, KeyboardAvoidingView, Platform, ScrollView, Dimensions } from 'react-native'
 import { supabase } from '../../lib/supabase'
@@ -14,8 +13,6 @@ AppState.addEventListener('change', (state) => {
         supabase.auth.stopAutoRefresh()
     }
 })
-
-
 
 export default function SignIn() {
 
