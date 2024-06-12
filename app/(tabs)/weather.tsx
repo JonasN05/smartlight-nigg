@@ -6,8 +6,11 @@ import IconAndDropdownCard from '../../components/cards/iconAndDropdown';
 import TextAndDropdown from "../../components/cards/textAndDropdown";
 import HeadlineAndTextAndDropdown from "../../components/cards/headlineAndTextAndDropdown";
 import RealTimeClock from '../../components/RealTimeClock';
+import useWeather from '../../components/WeatherAPI';
 
 export default function TabWeatherScreen() {
+    const { temp, wind } = useWeather();
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Standort</Text>
@@ -18,8 +21,8 @@ export default function TabWeatherScreen() {
             <Text></Text>
             <IconAndTextCard 
                 icon={require('../../icons/stormCloud.png')} 
-                headText='live wetter wenn möglich je nach ort' 
-                subText={"todo : helligkeit vlt auch temp"} 
+                headText={`Live Wetter: ${temp ? `${temp}°C` : 'Lädt...'}`} 
+                subText={`Wind: ${wind ? `${wind} km/h` : 'Lädt...'}`} 
             />
             <IconAndTextCard 
                 icon={require('../../icons/clock.png')} 
